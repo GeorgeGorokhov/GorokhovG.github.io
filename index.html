@@ -32,23 +32,28 @@
 	<body>
 		<div id="photo-conteiner">
 		<?php
-			if(isset($_POST['param1']) && isset($_POST['param2']) && isset($_POST['param3'])){
+			if(isset($_POST['param'])){
     
-				$test111 = $_POST['param1'];
-				$test222 = $_POST['param2'];
-				$test333 = $_POST['param3'];
+				$test111 = $_POST['param'];
 				
 				$uploaddir = '../img_message/';
 				$uploadfile = $uploaddir . basename($_FILES['param_img']['name']);
 				move_uploaded_file($_FILES['param_img']['tmp_name'], $uploadfile);
 				
 				$printLn($test111);
-				$printLn($test222);
-				$printLn($test333);
 				$printLn($uploadfile);
+
+				// Открываем файл в нужном нам режиме. Нам же, нужно его создать и что то записать.
+				$fp = fopen("file.txt", "w");//поэтому используем режим 'w'
+
+				// записываем данные в открытый файл
+				fwrite($fp, $uploadfile);
+
+				//не забываем закрыть файл, это ВАЖНО
+				fclose($fp);
 			}
 		?>
-		</div
+		</div>
 	
 		<div>
 			<div class=" main-container">
